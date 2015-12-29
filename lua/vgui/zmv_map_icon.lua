@@ -78,7 +78,7 @@ function PANEL:SetMapData(data)
 	end
 	self.mapName:SizeToContents()
 	self.mapName:SetPos(self:GetWide() / 2 - self.mapName:GetWide() / 2, self:GetTall() - self.mapName:GetTall() - 10)
-	self.mapImage:OpenURL(ZMapVote.Config.ImageURL .. data.name)
+	self.mapImage:OpenURL(ZMapVote.Config.ImageURL .. "#" .. data.name)
 end
 
 function PANEL:SetVotes(votes)
