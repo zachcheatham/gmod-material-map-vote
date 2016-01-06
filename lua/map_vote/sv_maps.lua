@@ -4,7 +4,6 @@ ZMapVote.popularMaps = {
 	"ttt_minecraft_b5",
 	"de_dolls",
 	"ttt_67thway_v3",
-	"ttt_minecraft_haven",
 	"ttt_rooftops_2016_v1"
 }
 
@@ -12,6 +11,7 @@ ZMapVote.popularMaps = {
 ZMapVote.maps = {
 	"ttt_bank_b3",
 	"ttt_whitehouse_b2",
+	"ttt_minecraft_haven",
 	"ttt_island_2013",
 	"ttt_rooftops_a2",
 	"ttt_canyon_a4",
