@@ -88,6 +88,8 @@ function PANEL:SetVotes(votes)
 		self.votes:SetVisible(false)
 	else
 		self.votes:SetVisible(true)
+		self.votes:SizeToContents()
+		self.votes:SetPos(self:GetWide() - self.votes:GetWide() - 10, self.mapImage:GetTall() - self.votes:GetTall() - 5)
 	end
 end
 
