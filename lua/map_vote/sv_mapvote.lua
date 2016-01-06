@@ -32,7 +32,7 @@ local function finishVote()
 	else
 		local tally = {}
 		local topMaps = {}
-		local topMapaVotes = 0
+		local topMapsVotes = 0
 
 		-- Tally the votes
 		for _, map in pairs(votes) do
@@ -60,7 +60,7 @@ local function finishVote()
 				
 				table.Empty(topMaps)
 				table.insert(topMaps, map)
-				topMapVotes = voteCount
+				topMapsVotes = voteCount
 			end
 		end
 		
