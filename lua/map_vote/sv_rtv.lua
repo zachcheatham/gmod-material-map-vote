@@ -56,7 +56,7 @@ end
 
 if ZMapVote.Config.EnableRTV then
 	local function playerSay(ply, text, teamChat)
-		if string.sub(text, 1, 3) == "rtv" then
+		if string.sub(text, 1, 3) == "rtv" || string.sub(text, 1, 4) == "!rtv" then
 			if GAMEMODE.FirstRound and ZMapVote.Config.TTTDisableFirstRound then
 				ULib.tsayError(ply, "You may not rtv on the first round.", true)
 			else
