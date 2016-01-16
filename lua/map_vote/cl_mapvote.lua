@@ -54,12 +54,11 @@ net.Receive("ZMV_Selected", selected)
 
 local function votingFinished()
 	local winningMap = net.ReadString()
-	
-	voteWindow:SetVotingEnabled(false)
 
-	if IsValid(voteWindow) then
-		voteWindow:Show()
-	end
+    if not IsValid(voteWindow) then return end
+
+    voteWindow:SetVotingEnabled(false)
+	voteWindow:Show()
 	
 	print("ZMapVote: " .. winningMap .. " won the map vote!")
 	
