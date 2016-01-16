@@ -13,14 +13,22 @@ ZMapVote.maps = {
 	"ttt_whitehouse_b2",
 	"ttt_minecraft_haven",
 	"ttt_island_2013",
+	"dm_island17",
+	"ttt_clue_pak",
 	"ttt_rooftops_a2",
+	"ttt_krusty_krab",
 	"ttt_canyon_a4",
+	"ttt_roy_the_ship",
+	"ttt_westwood_v4",
+	"ttt_minecraftcity_v4",
+	"ttt_crummycradle_a4",
 	"ttt_magma_v2a",
 	"ttt_town_b1",
 	"ttt_bb_teenroom_b2",
 	"ttt_terrortrainb2",
 	"ttt_innocentmotel_v1",
-	"dm_richland"
+	"dm_richland",
+	"ttt_community_bowling_v5a"
 }
 
 -- DO NOT EDIT BELOW (Unless you know what you're doing, ofc)
