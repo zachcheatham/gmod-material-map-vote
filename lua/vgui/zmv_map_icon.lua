@@ -78,7 +78,7 @@ function PANEL:SetMapData(data)
 	end
 	self.mapName:SizeToContents()
 	self.mapName:SetPos(self:GetWide() / 2 - self.mapName:GetWide() / 2, self:GetTall() - self.mapName:GetTall() - 10)
-	self.mapImage:OpenURL(ZMapVote.Config.ImageURL .. "#" .. data.name)
+	self.mapImage:SetHTML("<!doctype html><html><head><style>html, body{margin:0;padding:0;background-color: rgb(247, 247, 247);font-family: Roboto, Arial;}div.mapImage{position: absolute;width: 100%;height: 100%;background-repeat: no-repeat;background-position: center center;background-size: cover; background-image: url(\"https://i.imgur.com/" .. data.imgur .. ".jpg\")}</style></head><body><div class=\"mapImage\"></div></body></html>")
 end
 
 function PANEL:SetVotes(votes)
