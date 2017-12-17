@@ -68,67 +68,57 @@ ZMapVote.maps = {
 	"ttt_terrorception"
 }
 
-
-
 -- DO NOT EDIT BELOW (Unless you know what you're doing, ofc)
 
 function ZMapVote.fetchUpcomingMaps()
 	local maps = {}
-	
+
 	local startIndex = (sql.QueryValue("SELECT value FROM mapvote_state WHERE key = 'last_map'") or 0) + 1
-	local popularStartIndex = (sql.QueryValue("SELECT value FROM mapvote_state WHERE key = 'last_popular_map'") or 0) + 1
-	
+    --local popularStartIndex = (sql.QueryValue("SELECT value FROM mapvote_state WHERE key = 'last_popular_map'") or 0) + 1
+
 	print ("ZMapVote: Map startIndex is " .. startIndex)
-	print ("ZMapVote: Popular map startIndex is " .. popularStartIndex)
-	
-	local mapsAdded = 0
+	--print ("ZMapVote: Popular map startIndex is " .. popularStartIndex)
+
+	--[[local mapsAdded = 0
 	local index = popularStartIndex
 	while mapsAdded < ZMapVote.Config.PopularMapsPerVote do
 		if index > #ZMapVote.popularMaps then
 			index = 1
 		end
-	
+
 		local map = {}
 		map.name = ZMapVote.popularMaps[index]
 		map.popular = true
-		
+
 		table.insert(maps, map)
-		
+
 		mapsAdded = mapsAdded + 1
 		index = index + 1
 	end
-	
+
 	index = index - 1
-	sql.Query("INSERT OR REPLACE INTO mapvote_state ('key', 'value') VALUES('last_popular_map', " .. index .. ")")
-	
-	mapsAdded = 0
-	index = startIndex
+	sql.Query("INSERT OR REPLACE INTO mapvote_state ('key', 'value') VALUES('last_popular_map', " .. index .. ")")]]--
+
+	local mapsAdded = 0
+	local index = startIndex
 	while mapsAdded < ZMapVote.Config.MapsPerVote do
 		if index > #ZMapVote.maps then
 			index = 1
 		end
-	
+
 		local map = {}
-		map.name = ZMapVote.maps[index]
-		map.popular = false
-		
+		map.name = ZMapVote.maps[index].name
+        map.imgur = ZMapVote.maps[index].imgur
+
 		table.insert(maps, map)
-		
+
 		mapsAdded = mapsAdded + 1
 		index = index + 1
 	end
-	
+
 	index = index - 1
 	sql.Query("INSERT OR REPLACE INTO mapvote_state ('key', 'value') VALUES('last_map', " .. index .. ")")
-	
-	if ZMapVote.Config.RandomMap then
-		local map = {}
-		map.name = "__random_map__"
-		map.popular = false
-		
-		table.insert(maps, map)
-	end
-	
+
 	return maps
 end
 
@@ -140,14 +130,14 @@ end
 function ZMapVote.fetchRandomMap()
 	local possibleMaps = {}
 	local mapFiles = file.Find("maps/*", "GAME")
-	
+
 	for _, file in ipairs(mapFiles) do
 		local name, extension = string.match(file, "(.*)%.(%a*)$")
 		if extension == "bsp" then
 			table.insert(possibleMaps, name)
 		end
 	end
-	
+
 	math.randomseed(SysTime())
 	return table.Random(possibleMaps)
 end

@@ -6,23 +6,17 @@ function PANEL:Init()
 	self.selected = false
 	self.flashed = false
 
-	self:SetWide(224)
-	self:SetTall(224)
+	self:SetWide(144)
+	self:SetTall(40)
 	self:SetMouseInputEnabled(true)
 	self:SetCursor("hand")
 
 	self.mapName = vgui.Create("DLabel", self)
 	self.mapName:SetFont("ZMapVoteText")
-	self.mapName:SetText("gm_example_map")
+	self.mapName:SetText("Extra Option")
 	self.mapName:SetColor(Color(0, 0, 0))
 	self.mapName:SizeToContents()
-	self.mapName:SetPos(self:GetWide() / 2 - self.mapName:GetWide() / 2, self:GetTall() - self.mapName:GetTall() - 10)
-
-	self.mapImage = vgui.Create("HTML", self)
-	self.mapImage:SetWide(self:GetWide())
-	self.mapImage:SetTall(self:GetTall() - self.mapName:GetTall() - 20)
-	self.mapImage:SetPos(0,-1)
-	self.mapImage:SetMouseInputEnabled(false)
+	self.mapName:SetPos(self:GetWide() / 2 - self.mapName:GetWide() / 2, self:GetTall() / 2  - self.mapName:GetTall() / 2)
 
 	self.votes = vgui.Create("DLabel", self)
 	self.votes:SetFont("ZMapVoteCount")
@@ -30,7 +24,7 @@ function PANEL:Init()
 	self.votes:SetExpensiveShadow(1, Color(0, 0, 0, 200))
 	self.votes:SetText("0")
 	self.votes:SizeToContents()
-	self.votes:SetPos(self:GetWide() - self.votes:GetWide() - 10, self.mapImage:GetTall() - self.votes:GetTall() - 5)
+	self.votes:SetPos(self:GetWide() - self.votes:GetWide() - 10, self:GetTall() / 2 - self.votes:GetTall() / 2)
 	self.votes:SetVisible(false)
 end
 
@@ -68,13 +62,9 @@ function PANEL:Paint(w, h)
 	--surface.DrawLine(1, h-1, w-2, h-1)
 end
 
-function PANEL:SetMapData(data)
-	self.data = data
-
-	self.mapName:SetText(data.name)
+function PANEL:SetText(text)
+    self.mapName:SetText(text)
 	self.mapName:SizeToContents()
-	self.mapName:SetPos(self:GetWide() / 2 - self.mapName:GetWide() / 2, self:GetTall() - self.mapName:GetTall() - 10)
-	self.mapImage:SetHTML("<!doctype html><html><head><style>html, body{margin:0;padding:0;background-color: rgb(247, 247, 247);font-family: Roboto, Arial;}div.mapImage{position: absolute;width: 100%;height: 100%;background-repeat: no-repeat;background-position: center center;background-size: cover; background-image: url(\"https://i.imgur.com/" .. data.imgur .. ".jpg\")}</style></head><body><div class=\"mapImage\"></div></body></html>")
 end
 
 function PANEL:SetVotes(votes)
@@ -82,10 +72,12 @@ function PANEL:SetVotes(votes)
 
 	if votes < 1 then
 		self.votes:SetVisible(false)
+        self.mapName:SetPos(self:GetWide() / 2 - self.mapName:GetWide() / 2, self:GetTall() / 2  - self.mapName:GetTall() / 2)
 	else
 		self.votes:SetVisible(true)
 		self.votes:SizeToContents()
-		self.votes:SetPos(self:GetWide() - self.votes:GetWide() - 10, self.mapImage:GetTall() - self.votes:GetTall() - 5)
+        self.mapName:SetPos(16, self:GetTall() / 2  - self.mapName:GetTall() / 2)
+		self.votes:SetPos(self:GetWide() - self.votes:GetWide() - 10, self:GetTall() / 2 - self.votes:GetTall() / 2)
 	end
 end
 
@@ -114,4 +106,4 @@ function PANEL:SetShadow(alpha, distance)
 	self.shadowDistance = distance
 end
 
-vgui.Register("ZMVMapIcon", PANEL, "Panel")
+vgui.Register("ZMVExtraOption", PANEL, "Panel")

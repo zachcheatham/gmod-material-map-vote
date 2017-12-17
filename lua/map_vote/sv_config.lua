@@ -8,13 +8,16 @@ ZMapVote.Config = {}
 ZMapVote.Config.RotationMode = true -- THIS DOESN'T DO ANYTHING RIGHT NOW :S
 
 -- How many popular maps you want to show per map vote
-ZMapVote.Config.PopularMapsPerVote = 1
+--ZMapVote.Config.PopularMapsPerVote = 1
 
 -- How many maps you want shown per map vote (this does not include the popular maps)
-ZMapVote.Config.MapsPerVote = 6
+ZMapVote.Config.MapsPerVote = 8
 
 -- Enable option for a random map from entire map rotation
-ZMapVote.Config.RandomMap = true
+ZMapVote.Config.RandomMap = false
+
+-- Enable option for extending the map
+ZMapVote.Config.ExtendMap = true
 
 -- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 -- I HIGHLY recommend making the total maps in the list add up to 8 (Includes random map as 1)

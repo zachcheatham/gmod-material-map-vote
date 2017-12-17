@@ -3,30 +3,32 @@ local voteWindow = nil
 local function mapPicked(pnl, name)
 	net.Start("ZMV_Vote")
 	net.WriteString(name)
-	net.SendToServer()	
+	net.SendToServer()
 end
 
 local function start()
-	print ("ZMapVote by zachcheatham. I have no website for this. Try to find me if you want a copy!")	
-	
 	local maps = net.ReadTable()
 	local seconds = net.ReadInt(6)
-	
+    local randomMap = net.ReadBool()
+    local extendMap = net.ReadBool()
+
 	if IsValid(voteWindow) then
 		voteWindow:Remove()
 	end
-	
+
 	voteWindow = vgui.Create("ZMVVoteWindow")
 	voteWindow.OnMapPicked = mapPicked
-	
+
 	for _, m in ipairs(maps) do
 		voteWindow:AddMap(m)
 	end
-	
+    voteWindow:SetRandomEnabled(randomMap)
+    voteWindow:SetExtendEnabled(extendMap)
+
 	voteWindow:SetTimer(seconds)
 	voteWindow:SetVisible(true)
 	print ("ZMapVote: Voting has begun!")
-	
+
 	hook.Call("ZMVVotingStarted", winningMap)
 end
 net.Receive("ZMV_Start", start)
@@ -34,9 +36,9 @@ net.Receive("ZMV_Start", start)
 local function update()
 	local map = net.ReadString()
 	local votes = net.ReadInt(7)
-	
+
 	--print ("ZMapVote debug: " .. map .. " now has " .. votes .. " vote(s)")
-	
+
 	if IsValid(voteWindow) then
 		voteWindow:SetMapVotes(map, votes)
 	end
@@ -45,7 +47,7 @@ net.Receive("ZMV_Update", update)
 
 local function selected()
 	local map = net.ReadString()
-	
+
 	if IsValid(voteWindow) then
 		voteWindow:SetSelected(map)
 	end
@@ -59,11 +61,20 @@ local function votingFinished()
 
     voteWindow:SetVotingEnabled(false)
 	voteWindow:Show()
-	
-	print("ZMapVote: " .. winningMap .. " won the map vote!")
-	
+
+
+
 	voteWindow:FlashWinningMap(winningMap)
-	
+
+    if winningMap == "__extend__" then
+        print("ZMapVote: The map will be extended!")
+        timer.Simple(2, function()
+            voteWindow:Remove()
+            voteWindow = nil
+        end)
+    else
+        print("ZMapVote: " .. winningMap .. " won the map vote!")
+    end
 	hook.Call("ZMVVotingCompleted", nil, winningMap)
 end
 net.Receive("ZMV_Finish", votingFinished)
