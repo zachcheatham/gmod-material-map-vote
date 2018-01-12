@@ -1,143 +1,110 @@
--- Only put maps in here that aren't in the popular maps array.
-ZMapVote.popularMaps = {
-	"ttt_67thway_v7",
-	"ttt_roy_the_ship",
-	"dm_island17",
-	"dm_richland",
-	"ttt_minecraft_b5",
-	"ttt_rooftops_a2",
-	"ttt_crummycradle_a4",
-	"ttt_whitehouse_b2",
-	"ttt_innocentmotel_b6",
-	"ttt_krusty_krab",
-	"ttt_rooftops_2016_v1",
-	"ttt_67thway_v3",
-	"de_dolls",
-}
-
 -- Maps that you want presented to players in a rotation
+
+-- Unknown is ICK2lr1
 ZMapVote.maps = {
-	"ttt_lost_temple_v2",
-	"ttt_backalley_b1",
-	"ttt_hotwireslum_final",
-	"de_westwood",
-	"ttt_innocentmotel_v1",
-	"ttt_anxiety",
-	"ttt_toxicwaste",
-	"ttt_town_b1",
-	"cs_rooftops_css",
-	"cs_desperados",
-	"ttt_island_2013",
-	"ttt_cruise",
-	"ttt_subway_b4",
-	"ttt_intergalatic",
-	"ttt_magma",
-	"ttt_nuclear_power_b2",
-	"ttt_terrortrainb2",
-	"ttt_giant_daycare",
-	"ttt_bb_schooldayv3_r3",
-	"cs_office-unlimited",
-	"ttt_castle_2011_v3_night",
-	"ttt_bb_teenroom_b2",
-	"ttt_stone_v2",
-	"ttt_thething_b4",
-	"ttt_magma_v2a",
-	"ttt_krusty_krab_a2",
-	"ttt_kingswoodmanor_001_d",
-	"ttt_summermansion_b3",
-	"ttt_hairyhouse",
-	"ttt_smalltown",
-	"ttt_canyon_a4",
-	"ttt_minecraft_haven",
-	"ttt_motel_b4",
-	"ttt_rapture_v3",
-	"ttt_forgotten_forge",
-	"ttt_stadium_v1",
-	"ttt_floodlights",
-	"ttt_community_bowling_v5",
-	"ttt_fuuk_jail_final2",
-	"ttt_bank_b3",
-	"ttt_stripclub_v2",
-	"ttt_cloverfield_b2",
-	"ttt_stargate_v3",
-	"ttt_bb_canalwarehousev2_r3",
-	"ttt_sewers",
-	"ttt_minecraftcity_v4",
-	"ttt_woodedwidow",
-	"ttt_clue_pak",
-	"ttt_terrorception"
+	{name="ttt_67thway_v14", imgur = "Zt3x7iz"},
+	{name="ttt_waterworld_r9", imgur = "sJrxeX4", min_plys=18},
+	{name="ttt_terrortrainb2", imgur = "IgswIgm", min_plys=12},
+	{name="de_westwood", imgur = "OBkBJeo", min_plys=12},
+	{name="cs_desperados", imgur = "LGdrTZA", min_plys=18},
+	{name="ttt_rooftops_a2_f1", imgur = "3373vDz"},
+	{name="ttt_wintermansion_beta2", imgur = "jg2dO96", min_plys=18},
+	{name="ttt_subway_b4", imgur = "FvC5Lal"},
+	{name="ttt_intergalactic", imgur = "lS5d1Uh"},
+	{name="ttt_clue_pak", imgur = "yd9GyDC"},
+	{name="ttt_minecraftcity_v4", imgur = "1G0cTlO"},
+	{name="dm_island17", imgur = "Yc4ZU6u"},
+	{name="ttt_67thway_v3", imgur = "J0QGfVt"},
+	{name="ttt_roy_the_ship", imgur = "u0NTvPn"},
+	{name="ttt_innocentmotel_v1", imgur = "ruBy3NU"},
+	{name="ttt_bb_teenroom_b2", imgur = "HVyJ0L0", min_plys=18},
+	{name="ttt_minecraft_b5", imgur = "E28JWLj"},
+	{name="ttt_crummycradle_a4", imgur = "eI8dW4W", min_plys=18},
+	{name="ttt_lost_temple_v2", imgur = "jCqatlZ", min_plys=18},
+	{name="de_dolls", imgur = "7BhCKVD"},
+	{name="ttt_whitehouse_b2", imgur = "VgPADXG", min_pls=12},
+	{name="ttt_rooftops_2016_v1", imgur = "8kDN0L4"},
+	{name="ttt_mc_dolls_v3", imgur = "9fVfX5x"},
+	{name="ttt_magma", imgur = "q7ZJyCz"},
+	{name="ttt_krusty_krab", imgur = "MaQxtI7"},
+	{name="ttt_richland_fix", imgur = "tQ5pfWx"},
+	{name="ttt_anxiety", imgur = "4K6CtSu"}
 }
 
 -- DO NOT EDIT BELOW (Unless you know what you're doing, ofc)
 
 function ZMapVote.fetchUpcomingMaps()
-	local maps = {}
+    local maps = {}
 
-	local startIndex = (sql.QueryValue("SELECT value FROM mapvote_state WHERE key = 'last_map'") or 0) + 1
+    local startIndex = (sql.QueryValue("SELECT value FROM mapvote_state WHERE key = 'last_map'") or 0) + 1
     --local popularStartIndex = (sql.QueryValue("SELECT value FROM mapvote_state WHERE key = 'last_popular_map'") or 0) + 1
 
-	print ("ZMapVote: Map startIndex is " .. startIndex)
-	--print ("ZMapVote: Popular map startIndex is " .. popularStartIndex)
+    print ("ZMapVote: Map startIndex is " .. startIndex)
+    --print ("ZMapVote: Popular map startIndex is " .. popularStartIndex)
 
-	--[[local mapsAdded = 0
-	local index = popularStartIndex
-	while mapsAdded < ZMapVote.Config.PopularMapsPerVote do
-		if index > #ZMapVote.popularMaps then
-			index = 1
-		end
+    --[[local mapsAdded = 0
+    local index = popularStartIndex
+    while mapsAdded < ZMapVote.Config.PopularMapsPerVote do
+        if index > #ZMapVote.popularMaps then
+            index = 1
+        end
 
-		local map = {}
-		map.name = ZMapVote.popularMaps[index]
-		map.popular = true
+        local map = {}
+        map.name = ZMapVote.popularMaps[index]
+        map.popular = true
 
-		table.insert(maps, map)
+        table.insert(maps, map)
 
-		mapsAdded = mapsAdded + 1
-		index = index + 1
-	end
+        mapsAdded = mapsAdded + 1
+        index = index + 1
+    end
 
-	index = index - 1
-	sql.Query("INSERT OR REPLACE INTO mapvote_state ('key', 'value') VALUES('last_popular_map', " .. index .. ")")]]--
+    index = index - 1
+    sql.Query("INSERT OR REPLACE INTO mapvote_state ('key', 'value') VALUES('last_popular_map', " .. index .. ")")]]--
 
-	local mapsAdded = 0
-	local index = startIndex
-	while mapsAdded < ZMapVote.Config.MapsPerVote do
-		if index > #ZMapVote.maps then
-			index = 1
-		end
+    local mapsAdded = 0
+    local index = startIndex
+    while mapsAdded < ZMapVote.Config.MapsPerVote do
+        if index > #ZMapVote.maps then
+            index = 1
+        end
 
-		local map = {}
-		map.name = ZMapVote.maps[index].name
-        map.imgur = ZMapVote.maps[index].imgur
+        if game.GetMap() ~= ZMapVote.maps[index].name then
+            if ZMapVote.maps[index].min_plys == nil or #player.GetAll() >= ZMapVote.maps[index].min_plys then
+                local map = {}
+                map.name = ZMapVote.maps[index].name
+                map.imgur = ZMapVote.maps[index].imgur
 
-		table.insert(maps, map)
+                table.insert(maps, map)
+                mapsAdded = mapsAdded + 1
+            end
+        end
 
-		mapsAdded = mapsAdded + 1
-		index = index + 1
-	end
+        index = index + 1
+    end
 
-	index = index - 1
-	sql.Query("INSERT OR REPLACE INTO mapvote_state ('key', 'value') VALUES('last_map', " .. index .. ")")
+    index = index - 1
+    sql.Query("INSERT OR REPLACE INTO mapvote_state ('key', 'value') VALUES('last_map', " .. index .. ")")
 
-	return maps
+    return maps
 end
 
 function ZMapVote.fetchAllMaps()
-	ErrorNoHalt("ZMapVote warning: Non-rotation mode has not been implemented yet!")
-	return {}
+    ErrorNoHalt("ZMapVote warning: Non-rotation mode has not been implemented yet!")
+    return {}
 end
 
 function ZMapVote.fetchRandomMap()
-	local possibleMaps = {}
-	local mapFiles = file.Find("maps/*", "GAME")
+    local possibleMaps = {}
+    local mapFiles = file.Find("maps/*", "GAME")
 
-	for _, file in ipairs(mapFiles) do
-		local name, extension = string.match(file, "(.*)%.(%a*)$")
-		if extension == "bsp" then
-			table.insert(possibleMaps, name)
-		end
-	end
+    for _, file in ipairs(mapFiles) do
+        local name, extension = string.match(file, "(.*)%.(%a*)$")
+        if extension == "bsp" then
+            table.insert(possibleMaps, name)
+        end
+    end
 
-	math.randomseed(SysTime())
-	return table.Random(possibleMaps)
+    math.randomseed(SysTime())
+    return table.Random(possibleMaps)
 end
